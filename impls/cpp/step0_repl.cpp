@@ -1,42 +1,35 @@
-#include "String.h"
-#include "ReadLine.h"
-
 #include <iostream>
-#include <memory>
+#include <string>
+using namespace std;
 
-String READ(const String& input);
-String EVAL(const String& ast);
-String PRINT(const String& ast);
-String rep(const String& input);
-
-static ReadLine s_readLine("~/.mal-history");
-
-int main(int argc, char* argv[])
-{
-    String prompt = "user> ";
-    String input;
-    while (s_readLine.get(prompt, input)) {
-        std::cout << rep(input) << "\n";
-    }
-    return 0;
-}
-
-String rep(const String& input)
-{
-    return PRINT(EVAL(READ(input)));
-}
-
-String READ(const String& input)
-{
+string READ(string input){
     return input;
 }
 
-String EVAL(const String& ast)
-{
-    return ast;
+string EVAL (string input){
+    return input;
 }
 
-String PRINT(const String& ast)
-{
-    return ast;
+string PRINT (string input){
+    return input;
+}
+
+string REP (string input){
+    auto ast = READ(input);
+    auto result = EVAL(ast);
+    return PRINT(result);
+}
+
+int main(){
+    string input {};
+    while(true){
+        cout << "user>";
+        if(!getline(cin, input)){
+            break;
+        }
+        cout << REP(input);
+        cout << endl;
+    }
+
+    return 0;
 }
